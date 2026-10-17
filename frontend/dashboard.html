@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexHire — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">N</span>exHire</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"     class="nav-link">Home</a>
+        <a href="jobs.html"      class="nav-link">Jobs</a>
+        <a href="login.html"     class="nav-link">Login</a>
+        <a href="dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="post-job.html"  class="nav-link">Post Job</a>
+        <a href="recruiter.html" class="nav-link nav-cta">Recruiter</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── DASHBOARD (always shown) ── -->
+  <div class="db-page" id="dbPage">
+
+    <!-- Top bar -->
+    <div class="db-topbar">
+      <div class="db-topbar-inner">
+        <div class="db-greeting">
+          <h1>Welcome back, <span id="greetName" class="heading-accent">—</span> 👋</h1>
+          <p id="greetDate"></p>
+        </div>
+        <div class="db-topbar-actions">
+          <a href="jobs.html" class="db-action-btn primary">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Browse Jobs</span>
+          </a>
+          <button class="db-action-btn ghost" id="refreshBtn">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Refresh</span>
+          </button>
+          <button class="db-action-btn danger" id="logoutBtnTop">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="db-body">
+
+      <!-- ══ SIDEBAR ══ -->
+      <aside class="db-sidebar">
+
+        <!-- Profile card -->
+        <div class="profile-card">
+          <div class="profile-cover"><div class="profile-cover-pattern"></div></div>
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" id="profileAvatar">?</div>
+          </div>
+          <div class="profile-info">
+            <p class="profile-name" id="profileName">—</p>
+            <p class="profile-email" id="profileEmail">—</p>
+            <div class="profile-badge"><i class="fa-solid fa-circle-check" style="font-size:.6rem"></i> Active Job Seeker</div>
+            <div class="profile-divider"></div>
+            <div class="profile-meta">
+              <div class="profile-meta-row">
+                <i class="fa-solid fa-briefcase"></i>
+                <span><strong id="metaApplied">0</strong>Applications sent</span>
+              </div>
+              <div class="profile-meta-row">
+                <i class="fa-solid fa-bookmark"></i>
+                <span><strong id="metaSaved">0</strong>Jobs saved</span>
+              </div>
+              <div class="profile-meta-row">
+                <i class="fa-solid fa-eye"></i>
+                <span><strong id="metaViewed">0</strong>Profiles viewed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side navigation -->
+        <nav class="db-sidenav">
+          <button class="sidenav-item active" onclick="scrollToSection('sectionStats')">
+            <i class="fa-solid fa-chart-pie"></i> Overview
+          </button>
+          <button class="sidenav-item" onclick="scrollToSection('sectionApplied')">
+            <i class="fa-solid fa-paper-plane"></i> Applied Jobs
+          </button>
+          <button class="sidenav-item" onclick="scrollToSection('sectionSaved')">
+            <i class="fa-solid fa-bookmark"></i> Saved Jobs
+          </button>
+          <button class="sidenav-item" onclick="scrollToSection('sectionActivity')">
+            <i class="fa-solid fa-clock-rotate-left"></i> Activity
+          </button>
+          <div class="sidenav-sep"></div>
+          <a href="jobs.html" class="sidenav-item" style="text-decoration:none">
+            <i class="fa-solid fa-magnifying-glass"></i> Browse Jobs
+          </a>
+          <a href="post-job.html" class="sidenav-item" style="text-decoration:none">
+            <i class="fa-solid fa-plus"></i> Post a Job
+          </a>
+          <div class="sidenav-sep"></div>
+          <button class="sidenav-item danger" id="logoutBtnSide">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </button>
+        </nav>
+
+        <!-- Profile completion -->
+        <div class="profile-completion">
+          <div class="pc-header">
+            <span>Profile Completion</span>
+            <strong id="pcPercent">60%</strong>
+          </div>
+          <div class="pc-bar"><div class="pc-fill" id="pcFill" style="width:60%"></div></div>
+          <div class="pc-steps">
+            <div class="pc-step done"><i class="fa-solid fa-check"></i> Account created</div>
+            <div class="pc-step done"><i class="fa-solid fa-check"></i> Email verified</div>
+            <div class="pc-step done" id="pcApplied"><i class="fa-solid fa-check"></i> First application sent</div>
+            <div class="pc-step" id="pcSaved"><i class="fa-regular fa-circle"></i> Save a job</div>
+            <div class="pc-step" id="pcProfile"><i class="fa-regular fa-circle"></i> Complete profile info</div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ══ MAIN CONTENT ══ -->
+      <div class="db-main">
+
+        <!-- Stats row -->
+        <div class="stats-grid" id="sectionStats">
+          <div class="stat-card" style="--sc-bg:rgba(99,102,241,.12);--sc-color:#818cf8">
+            <div class="stat-icon"><i class="fa-solid fa-paper-plane"></i></div>
+            <div class="stat-content">
+              <strong id="statApplied">0</strong>
+              <span>Applied Jobs</span>
+            </div>
+            <span class="stat-trend trend-new" id="trendApplied">New</span>
+          </div>
+          <div class="stat-card" style="--sc-bg:rgba(245,158,11,.12);--sc-color:#fbbf24">
+            <div class="stat-icon"><i class="fa-solid fa-bookmark"></i></div>
+            <div class="stat-content">
+              <strong id="statSaved">0</strong>
+              <span>Saved Jobs</span>
+            </div>
+          </div>
+          <div class="stat-card" style="--sc-bg:rgba(14,165,233,.12);--sc-color:#38bdf8">
+            <div class="stat-icon"><i class="fa-solid fa-eye"></i></div>
+            <div class="stat-content">
+              <strong id="statViewed">0</strong>
+              <span>Jobs Viewed</span>
+            </div>
+            <span class="stat-trend trend-up" id="trendViewed">↑ Active</span>
+          </div>
+        </div>
+
+        <!-- Applied Jobs -->
+        <div class="db-section" id="sectionApplied">
+          <div class="db-section-head">
+            <div class="db-section-title">
+              <i class="fa-solid fa-paper-plane"></i>
+              Applied Jobs
+              <span class="db-count-badge" id="appliedCount">0</span>
+            </div>
+            <a href="jobs.html" class="db-section-link">Browse more →</a>
+          </div>
+          <div id="appliedList">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Saved Jobs -->
+        <div class="db-section" id="sectionSaved">
+          <div class="db-section-head">
+            <div class="db-section-title">
+              <i class="fa-solid fa-bookmark"></i>
+              Saved Jobs
+              <span class="db-count-badge" id="savedCount">0</span>
+            </div>
+            <a href="jobs.html" class="db-section-link">Find more →</a>
+          </div>
+          <div id="savedList">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="db-section" id="sectionActivity">
+          <div class="db-section-head">
+            <div class="db-section-title">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              Recent Activity
+            </div>
+          </div>
+          <div class="activity-list" id="activityList">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+      </div><!-- /.db-main -->
+    </div><!-- /.db-body -->
+  </div><!-- /#dbPage -->
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="dashboard.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

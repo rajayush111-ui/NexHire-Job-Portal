@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexHire — Browse Jobs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR (identical to index) ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-mark">N</span>exHire
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="jobs.html"  class="nav-link active">Jobs</a>
+        <a href="login.html" class="nav-link">Login</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="post-job.html"  class="nav-link">Post Job</a>
+        <a href="recruiter.html" class="nav-link nav-cta">Recruiter</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="jobs-page">
+
+    <!-- ── PAGE HERO ── -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="grid-overlay"></div>
+      </div>
+      <div class="page-hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span id="liveCount">Loading opportunities…</span>
+        </div>
+        <h1 class="page-hero-title">Browse <span class="heading-accent">All Jobs</span></h1>
+        <p class="page-hero-sub">Real-time listings. Filter, search, and apply in seconds.</p>
+      </div>
+    </section>
+
+    <!-- ── CONTROLS BAR ── -->
+    <section class="controls-bar">
+      <div class="controls-inner">
+
+        <!-- Search -->
+        <div class="ctrl-search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            class="ctrl-input"
+            placeholder="Search by title or company…"
+            autocomplete="off"
+          />
+          <button class="ctrl-clear" id="clearSearch" aria-label="Clear search" title="Clear">✕</button>
+        </div>
+
+        <!-- Location filter -->
+        <div class="ctrl-select-wrap">
+          <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <select id="locationFilter" class="ctrl-select">
+            <option value="">All Locations</option>
+          </select>
+        </div>
+
+        <!-- Job-type filter -->
+        <div class="ctrl-select-wrap">
+          <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          </svg>
+          <select id="typeFilter" class="ctrl-select">
+            <option value="">All Types</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+
+        <!-- Sort -->
+        <div class="ctrl-select-wrap">
+          <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <select id="sortFilter" class="ctrl-select">
+            <option value="newest">Newest First</option>
+            <option value="salary-hi">Salary: High → Low</option>
+            <option value="salary-lo">Salary: Low → High</option>
+            <option value="az">A → Z</option>
+          </select>
+        </div>
+
+        <!-- Reset -->
+        <button class="ctrl-reset" id="resetFilters" title="Reset all filters">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+          </svg>
+          Reset
+        </button>
+
+      </div>
+
+      <!-- Active filter chips -->
+      <div class="active-chips" id="activeChips"></div>
+    </section>
+
+    <!-- ── RESULTS META ── -->
+    <div class="results-meta">
+      <div class="results-meta-inner">
+        <span id="resultsCount" class="results-count">— jobs found</span>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridViewBtn" aria-label="Grid view" title="Grid view">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </button>
+          <button class="view-btn" id="listViewBtn" aria-label="List view" title="List view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── JOB CARDS GRID ── -->
+    <section class="jl-section">
+      <div class="jl-grid" id="jobsGrid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-icon">🔍</div>
+        <h3>No jobs found</h3>
+        <p>Try adjusting your search or filters to find what you're looking for.</p>
+        <button class="cta-primary" id="emptyReset">Clear Filters</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-mark">N</span>exHire
+        </a>
+        <p>The modern way to find and fill great roles.</p>
+      </div>
+      <nav class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="login.html">Login</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="post-job.html">Post a Job</a>
+        <a href="recruiter.html">Recruiter</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 NexHire. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="jobs.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

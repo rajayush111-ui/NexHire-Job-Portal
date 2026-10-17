@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexHire — Post a Job</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">N</span>exHire</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"     class="nav-link">Home</a>
+        <a href="jobs.html"      class="nav-link">Jobs</a>
+        <a href="login.html"     class="nav-link">Login</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="post-job.html"  class="nav-link active">Post Job</a>
+        <a href="recruiter.html" class="nav-link nav-cta">Recruiter</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="pj-page">
+
+    <!-- Ambient bg -->
+    <div class="pj-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Hero -->
+    <div class="pj-hero">
+      <div class="pj-hero-badge">
+        <span class="badge-dot"></span>
+        <span>Reach 3.2M+ active job seekers</span>
+      </div>
+      <h1>Post a <span class="heading-accent">New Job</span></h1>
+      <p>Fill in the details below to attract the best candidates for your role.</p>
+    </div>
+
+    <!-- Layout -->
+    <div class="pj-layout">
+
+      <!-- ══ FORM CARD ══ -->
+      <div class="pj-card">
+        <div class="pj-card-header">
+          <div class="pj-card-header-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+          <div>
+            <h2>Job Listing Form</h2>
+            <p>Complete all 3 steps to publish your listing</p>
+          </div>
+        </div>
+
+        <!-- Step indicators -->
+        <div class="pj-steps" id="stepsBar">
+          <div class="pj-step active" data-step="1">
+            <div class="step-circle active" id="sc1">1</div>
+            <span class="step-label">Role Info</span>
+          </div>
+          <div class="step-line" id="sl1"></div>
+          <div class="pj-step" data-step="2">
+            <div class="step-circle" id="sc2">2</div>
+            <span class="step-label">Details</span>
+          </div>
+          <div class="step-line" id="sl2"></div>
+          <div class="pj-step" data-step="3">
+            <div class="step-circle" id="sc3">3</div>
+            <span class="step-label">Description</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="postJobForm" novalidate>
+
+          <!-- ── STEP 1: Role Info ── -->
+          <div class="pj-form-body">
+            <div class="form-section active" id="step1">
+              <div class="form-section-title"><i class="fa-solid fa-briefcase"></i> Role Information</div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label class="field-label" for="jobTitle">Job Title <span class="required">*</span></label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-briefcase field-icon-left"></i>
+                    <input type="text" id="jobTitle" class="field-input" placeholder="e.g. Senior Product Designer" autocomplete="off"/>
+                  </div>
+                  <span class="field-msg" id="jobTitleErr"></span>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="companyName">Company Name <span class="required">*</span></label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-building field-icon-left"></i>
+                    <input type="text" id="companyName" class="field-input" placeholder="e.g. Acme Corp" autocomplete="off"/>
+                  </div>
+                  <span class="field-msg" id="companyNameErr"></span>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label class="field-label" for="jobLocation">Location <span class="required">*</span></label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-location-dot field-icon-left"></i>
+                    <input type="text" id="jobLocation" class="field-input" placeholder="e.g. San Francisco, CA or Remote" autocomplete="off"/>
+                  </div>
+                  <span class="field-msg" id="jobLocationErr"></span>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="jobType">Job Type <span class="required">*</span></label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-clock field-icon-left"></i>
+                    <select id="jobType" class="field-select">
+                      <option value="">Select a type…</option>
+                      <option>Full-time</option>
+                      <option>Part-time</option>
+                      <option>Remote</option>
+                      <option>Hybrid</option>
+                      <option>Contract</option>
+                      <option>Internship</option>
+                    </select>
+                  </div>
+                  <span class="field-msg" id="jobTypeErr"></span>
+                </div>
+              </div>
+
+              <div class="field-row full">
+                <div class="field-group">
+                  <label class="field-label" for="jobSalary">Salary / Compensation <span class="required">*</span></label>
+                  <div class="salary-row">
+                    <div class="field-wrap">
+                      <i class="fa-solid fa-dollar-sign field-icon-left"></i>
+                      <input type="text" id="jobSalary" class="field-input" placeholder="e.g. 80,000 – 120,000" autocomplete="off"/>
+                    </div>
+                    <select class="salary-period" id="salaryPeriod">
+                      <option value="/yr">/yr</option>
+                      <option value="/mo">/mo</option>
+                      <option value="/hr">/hr</option>
+                    </select>
+                  </div>
+                  <span class="field-msg" id="jobSalaryErr"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── STEP 2: Details ── -->
+            <div class="form-section" id="step2">
+              <div class="form-section-title"><i class="fa-solid fa-tags"></i> Skills &amp; Details</div>
+
+              <div class="field-row full">
+                <div class="field-group">
+                  <label class="field-label" for="jobSkills">Skills / Tags <span class="required">*</span></label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-tag field-icon-left"></i>
+                    <input type="text" id="jobSkills" class="field-input" placeholder="Type a skill and press Enter or comma…" autocomplete="off"/>
+                  </div>
+                  <div class="tags-display" id="tagsDisplay"></div>
+                  <span class="field-msg hint">Press <kbd style="background:var(--bg-glass);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:.68rem">Enter</kbd> or <kbd style="background:var(--bg-glass);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:.68rem">,</kbd> to add a skill tag</span>
+                  <span class="field-msg" id="jobSkillsErr"></span>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label class="field-label" for="expLevel">Experience Level</label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-chart-line field-icon-left"></i>
+                    <select id="expLevel" class="field-select">
+                      <option value="">Any level</option>
+                      <option>Entry-level</option>
+                      <option>Mid-level</option>
+                      <option>Senior</option>
+                      <option>Lead / Manager</option>
+                      <option>Executive</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="jobCategory">Category</label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-layer-group field-icon-left"></i>
+                    <select id="jobCategory" class="field-select">
+                      <option value="">Select category…</option>
+                      <option>Engineering</option>
+                      <option>Design</option>
+                      <option>Marketing</option>
+                      <option>Sales</option>
+                      <option>Finance</option>
+                      <option>Operations</option>
+                      <option>HR & People</option>
+                      <option>Product</option>
+                      <option>Data & AI</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label class="field-label" for="jobDeadline">Application Deadline</label>
+                  <div class="field-wrap">
+                    <i class="fa-regular fa-calendar field-icon-left"></i>
+                    <input type="date" id="jobDeadline" class="field-input"/>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="contactEmail">Contact Email</label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-envelope field-icon-left"></i>
+                    <input type="email" id="contactEmail" class="field-input" placeholder="hr@company.com"/>
+                  </div>
+                  <span class="field-msg" id="contactEmailErr"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── STEP 3: Description ── -->
+            <div class="form-section" id="step3">
+              <div class="form-section-title"><i class="fa-solid fa-file-lines"></i> Job Description</div>
+
+              <div class="field-row full">
+                <div class="field-group">
+                  <label class="field-label" for="jobDesc">Description <span class="required">*</span></label>
+                  <textarea id="jobDesc" class="field-textarea" rows="8"
+                    placeholder="Describe the role, responsibilities, what you're looking for…&#10;&#10;• What will the candidate do day-to-day?&#10;• What's the team like?&#10;• What impact will they have?"></textarea>
+                  <div class="field-counter" id="descCounter">0 / 2000</div>
+                  <span class="field-msg" id="jobDescErr"></span>
+                </div>
+              </div>
+
+              <div class="field-row full">
+                <div class="field-group">
+                  <label class="field-label" for="jobPerks">Perks &amp; Benefits</label>
+                  <div class="field-wrap">
+                    <i class="fa-solid fa-gift field-icon-left"></i>
+                    <input type="text" id="jobPerks" class="field-input" placeholder="e.g. Health insurance, 401k, Unlimited PTO, Stock options"/>
+                  </div>
+                  <span class="field-msg hint">Optional — highlight what makes this role attractive</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form navigation -->
+          <div class="form-nav">
+            <button type="button" class="form-btn btn-back" id="btnBack" style="visibility:hidden">
+              <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <span class="step-counter" id="stepCounter">Step 1 of 3</span>
+            <button type="button" class="form-btn btn-next" id="btnNext">
+              Next <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <button type="submit" class="form-btn btn-submit" id="btnSubmit" style="display:none">
+              <span class="btn-label"><i class="fa-solid fa-paper-plane"></i> Post Job</span>
+              <span class="btn-spinner"><i class="fa-solid fa-spinner fa-spin"></i> Publishing…</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ══ SIDEBAR ══ -->
+      <aside class="pj-sidebar">
+
+        <!-- Tips -->
+        <div class="tip-card">
+          <div class="tip-card-title"><i class="fa-solid fa-lightbulb"></i> Tips for a Great Listing</div>
+          <div class="tip-list">
+            <div class="tip-item"><i class="fa-solid fa-check"></i> Use a specific job title — avoid vague terms like "Ninja" or "Rockstar"</div>
+            <div class="tip-item"><i class="fa-solid fa-check"></i> Be honest about salary — listings with ranges get 3× more applicants</div>
+            <div class="tip-item"><i class="fa-solid fa-check"></i> Add 5–10 relevant skill tags to improve search visibility</div>
+            <div class="tip-item"><i class="fa-solid fa-check"></i> Write at least 150 words in your description</div>
+            <div class="tip-item"><i class="fa-solid fa-check"></i> Mention remote/hybrid options — it dramatically widens your talent pool</div>
+          </div>
+        </div>
+
+        <!-- Live preview -->
+        <div class="tip-card" style="padding:0;overflow:hidden;">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border)">
+            <div class="tip-card-title" style="margin:0"><i class="fa-solid fa-eye"></i> Live Preview</div>
+          </div>
+          <div class="preview-body">
+            <div class="preview-top-bar" id="previewBar"></div>
+            <div class="preview-label">HOW CANDIDATES SEE IT</div>
+            <div class="preview-header">
+              <div class="preview-logo" id="prevLogo">?</div>
+              <div>
+                <div class="preview-company" id="prevCompany">Company Name</div>
+                <div class="preview-title"   id="prevTitle">Job Title</div>
+              </div>
+            </div>
+            <div class="preview-chips">
+              <span class="preview-chip" id="prevLocation"><i class="fa-solid fa-location-dot"></i> Location</span>
+              <span class="preview-chip" id="prevType"><i class="fa-solid fa-clock"></i> Type</span>
+            </div>
+            <div class="preview-salary" id="prevSalary"><span class="preview-placeholder">Salary not set</span></div>
+            <div class="preview-tags" id="prevTags"></div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="tip-card">
+          <div class="tip-card-title"><i class="fa-solid fa-chart-bar"></i> Platform Stats</div>
+          <div class="tip-list">
+            <div class="tip-item"><i class="fa-solid fa-user"></i> 3.2M+ active job seekers</div>
+            <div class="tip-item"><i class="fa-solid fa-eye"></i> Avg. 480 views per listing</div>
+            <div class="tip-item"><i class="fa-solid fa-paper-plane"></i> Avg. 32 applications in 7 days</div>
+            <div class="tip-item"><i class="fa-solid fa-bolt"></i> Listings go live instantly</div>
+          </div>
+        </div>
+
+      </aside>
+    </div><!-- /.pj-layout -->
+  </div><!-- /.pj-page -->
+
+  <!-- ── SUCCESS MODAL ── -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-card">
+      <div class="modal-confetti"></div>
+      <div class="modal-icon">🎉</div>
+      <h2>Job Posted!</h2>
+      <p>Your listing is live and visible to thousands of job seekers right now.</p>
+      <div class="modal-job-preview" id="modalJobPreview">
+        <div class="mjp-title"   id="mjpTitle">—</div>
+        <div class="mjp-company" id="mjpCompany">—</div>
+        <div class="mjp-chips">
+          <span class="mjp-chip mjp-type" id="mjpType">—</span>
+          <span class="mjp-chip mjp-loc"  id="mjpLoc">—</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn-primary" onclick="window.location.href='jobs.html'">
+          <i class="fa-solid fa-magnifying-glass"></i> View All Jobs
+        </button>
+        <button class="modal-btn-secondary" id="postAnotherBtn">
+          <i class="fa-solid fa-plus"></i> Post Another Job
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="postJob.js"></script>
+  <script src="script.js"></script></body>
+</html>

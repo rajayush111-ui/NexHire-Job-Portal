@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexHire — Recruiter Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">N</span>exHire</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html"     class="nav-link">Home</a>
+        <a href="jobs.html"      class="nav-link">Jobs</a>
+        <a href="login.html"     class="nav-link">Login</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="post-job.html"  class="nav-link">Post Job</a>
+        <a href="recruiter.html" class="nav-link active nav-cta">Recruiter</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <div class="rc-page">
+
+    <!-- Banner -->
+    <div class="rc-banner">
+      <div class="rc-banner-blob b1"></div>
+      <div class="rc-banner-blob b2"></div>
+      <div class="rc-banner-inner">
+        <div class="rc-banner-left">
+          <div class="rc-banner-badge"><span class="badge-dot"></span> Recruiter Portal</div>
+          <h1>Recruiter <span class="heading-accent">Dashboard</span></h1>
+          <p>Manage your job postings and applicants in one place</p>
+        </div>
+        <div class="rc-banner-actions">
+          <a href="post-job.html" class="rc-btn primary">
+            <i class="fa-solid fa-plus"></i><span>Post New Job</span>
+          </a>
+          <button class="rc-btn ghost" id="refreshBtn">
+            <i class="fa-solid fa-rotate-right"></i><span>Refresh</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="rc-body">
+
+      <!-- ── STATS ── -->
+      <div class="rc-stats" id="statsRow">
+        <div class="rc-stat" style="--sc-bg:rgba(99,102,241,.12);--sc-color:#818cf8">
+          <div class="rc-stat-icon"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="rc-stat-body"><strong id="statTotal">0</strong><span>Total Jobs Posted</span></div>
+          <span class="rc-stat-trend trend-new" id="trendTotal">All time</span>
+        </div>
+        <div class="rc-stat" style="--sc-bg:rgba(16,185,129,.12);--sc-color:#34d399">
+          <div class="rc-stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="rc-stat-body"><strong id="statActive">0</strong><span>Active Listings</span></div>
+          <span class="rc-stat-trend trend-up" id="trendActive">Live now</span>
+        </div>
+        <div class="rc-stat" style="--sc-bg:rgba(245,158,11,.12);--sc-color:#fbbf24">
+          <div class="rc-stat-icon"><i class="fa-solid fa-paper-plane"></i></div>
+          <div class="rc-stat-body"><strong id="statApps">0</strong><span>Total Applications</span></div>
+          <span class="rc-stat-trend trend-warn">Est.</span>
+        </div>
+        <div class="rc-stat" style="--sc-bg:rgba(244,63,94,.12);--sc-color:#f87171">
+          <div class="rc-stat-icon"><i class="fa-solid fa-eye"></i></div>
+          <div class="rc-stat-body"><strong id="statViews">0</strong><span>Total Views</span></div>
+          <span class="rc-stat-trend trend-up">↑ Growing</span>
+        </div>
+      </div>
+
+      <!-- ── TOOLBAR ── -->
+      <div class="rc-toolbar">
+        <div class="rc-search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="rcSearch" class="rc-search-input" placeholder="Search by title or company…" autocomplete="off"/>
+        </div>
+        <select id="rcTypeFilter" class="rc-filter-select">
+          <option value="">All Types</option>
+          <option>Full-time</option><option>Part-time</option>
+          <option>Remote</option><option>Hybrid</option>
+          <option>Contract</option><option>Internship</option>
+        </select>
+        <select id="rcStatusFilter" class="rc-filter-select">
+          <option value="">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Paused">Paused</option>
+          <option value="Closed">Closed</option>
+        </select>
+        <select id="rcSort" class="rc-filter-select">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="az">A → Z</option>
+          <option value="apps">Most Apps</option>
+        </select>
+        <span class="rc-result-count" id="rcResultCount"><strong>0</strong> jobs</span>
+        <div class="rc-view-toggle">
+          <button class="view-btn active" id="gridViewBtn" title="Grid view"><i class="fa-solid fa-grip"></i></button>
+          <button class="view-btn"        id="listViewBtn" title="List view"><i class="fa-solid fa-list"></i></button>
+        </div>
+      </div>
+
+      <!-- ── JOBS GRID ── -->
+      <div class="rc-jobs-grid" id="rcJobsGrid"></div>
+
+    </div><!-- /.rc-body -->
+  </div><!-- /.rc-page -->
+
+  <!-- ── EDIT MODAL ── -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div class="modal-head-icon" style="background:rgba(99,102,241,.15);color:var(--accent)">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </div>
+        <h3>Edit Job Listing</h3>
+        <button class="modal-close" id="editClose"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editId"/>
+        <div class="modal-grid">
+          <div class="modal-field">
+            <label class="modal-label">Job Title</label>
+            <input type="text" id="editTitle" class="modal-input" placeholder="Job title"/>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Company</label>
+            <input type="text" id="editCompany" class="modal-input" placeholder="Company name"/>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Location</label>
+            <input type="text" id="editLocation" class="modal-input" placeholder="Location"/>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Job Type</label>
+            <select id="editType" class="modal-select">
+              <option>Full-time</option><option>Part-time</option>
+              <option>Remote</option><option>Hybrid</option>
+              <option>Contract</option><option>Internship</option>
+            </select>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Salary</label>
+            <input type="text" id="editSalary" class="modal-input" placeholder="e.g. $80k–$120k /yr"/>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Status</label>
+            <select id="editStatus" class="modal-select">
+              <option value="Active">Active</option>
+              <option value="Paused">Paused</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-field">
+          <label class="modal-label">Skills / Tags (comma separated)</label>
+          <input type="text" id="editTags" class="modal-input" placeholder="React, TypeScript, Node.js"/>
+        </div>
+        <div class="modal-field">
+          <label class="modal-label">Description</label>
+          <textarea id="editDesc" class="modal-textarea" rows="4" placeholder="Job description…"></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="modal-btn cancel" id="editCancelBtn">Cancel</button>
+        <button class="modal-btn save"   id="editSaveBtn"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONFIRM DELETE MODAL ── -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="confirm-box">
+      <div class="confirm-icon">🗑️</div>
+      <h3>Delete this job?</h3>
+      <p id="confirmText">This action cannot be undone. The listing will be permanently removed.</p>
+      <div class="confirm-actions">
+        <button class="confirm-btn confirm-cancel" id="confirmCancelBtn">Keep It</button>
+        <button class="confirm-btn confirm-delete" id="confirmDeleteBtn">
+          <i class="fa-solid fa-trash"></i> Yes, Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="recruiter.js"></script>
+  <script src="script.js"></script></body>
+</html>
